@@ -102,5 +102,29 @@
       renderTestimonials();
     });
   </script>
+  <script src="https:js.paystack.co/v1/inlinne.js"></script>
+  <button onclick="payWithPaystack()">
+     Pay Now
+  </button>
+  <script>
+    fuction payWithPaystack() {
+      let handler = PaystackPop.setup({
+        key: 'pk_test_your_public_key_here',
+        email: 'custoer@example.com',
+        amount: 5000 *100, // GHS 50.00
+        currency: 'GHS',
+
+        callback: function(response) {
+          alert('Payment successful. Ref: ' + response.reference);
+        },
+
+        onClose: function() {
+          alert('Transaction cancelled');
+        }
+      });
+
+      handler.openIframe();
+    }
+  </script>
 </body>
 </html>
