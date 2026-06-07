@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Products | Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Outfit:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div style="padding:1rem 1.5rem;border-bottom:1px solid var(--border);margin-bottom:1rem"><img src="../assets/logo.svg" width="140" alt="" /></div>
+      <a href="index.html" data-page="index">Dashboard</a>
+      <a href="products.html" data-page="products">Products</a>
+      <a href="orders.html" data-page="orders">Orders</a>
+      <a href="customers.html" data-page="customers">Customers</a>
+      <a href="promotions.html" data-page="promotions">Promotions</a>
+      <a href="#" id="admin-logout" style="margin-top:2rem;color:#e74c3c">Logout</a>
+    </aside>
+    <div class="admin-main">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem">
+        <h1>Products & Inventory</h1>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <button type="button" class="btn btn-ghost btn-sm" id="reset-catalog-btn" title="Restore images from products.js">Reload default catalog</button>
+          <button class="btn btn-primary btn-sm" id="add-product-btn">+ Add Product</button>
+        </div>
+      </div>
+      <p class="text-muted" style="font-size:0.85rem;margin-bottom:1.5rem">To use your own photos: save files in <code style="color:var(--gold)">assets/products/</code> (e.g. <code style="color:var(--gold)">jj-001.jpg</code>), then Edit a product and set image paths below.</p>
+      <div style="overflow-x:auto">
+        <table class="admin-table">
+          <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Popularity</th><th>Actions</th></tr></thead>
+          <tbody id="admin-products-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-content">
+      <h2>Product</h2>
+      <form id="product-form">
+        <div class="form-group"><label>Name</label><input name="name" required /></div>
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" required>
+            <option value="necklaces">Necklaces</option>
+            <option value="bracelets">Bracelets</option>
+            <option value="rings">Rings</option>
+            <option value="earrings">Earrings</option>
+            <option value="watches">Watches</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Price (GHS)</label><input name="price" type="number" required /></div>
+          <div class="form-group"><label>Stock</label><input name="stock" type="number" required /></div>
+        </div>
+        <div class="form-group"><label>Popularity (0-100)</label><input name="popularity" type="number" value="50" /></div>
+        <div class="form-group">
+          <label>Product images</label>
+          <p class="text-muted" style="font-size:0.75rem;margin-bottom:0.5rem">One per line — local file or web link. Example:<br><code>assets/products/jj-001.jpg</code></p>
+          <textarea name="images" rows="4" placeholder="assets/products/jj-001.jpg&#10;assets/products/jj-001-2.jpg"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Preview</label>
+          <img id="image-preview" src="" alt="Preview" style="max-width:100%;max-height:160px;object-fit:contain;border:1px solid var(--border);border-radius:4px;background:var(--black);display:none" />
+        </div>
+        <div class="form-group">
+          <label>Pick a file (preview only)</label>
+          <input type="file" id="image-file-picker" accept="image/*" />
+          <p class="text-muted" id="image-file-hint" style="font-size:0.75rem;margin-top:0.35rem"></p>
+        </div>
+        <div class="form-group"><label>Description</label><textarea name="description" rows="3"></textarea></div>
+        <label style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem"><input type="checkbox" name="featured" /> Featured</label>
+        <div style="display:flex;gap:0.75rem">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-ghost" id="close-modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="../js/products.js"></script>
+  <script src="../js/store.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", initAdminDashboard);</script>
+</body>
+</html>
