@@ -111,15 +111,15 @@
       let handler = PaystackPop.setup({
         key: 'pk_test_your_public_key_here',
         email: 'custoer@example.com',
-        amount: 5000 *100, // GHS 50.00
+        amount: 5000 *100, 
         currency: 'GHS',
 
         callback: function(response) {
-          alert('Payment successful. Ref: ' + response.reference);
+          alert('Payment successful2);
         },
 
         onClose: function() {
-          alert('Transaction cancelled');
+          alert('Payment cancelled');
         }
       });
 
