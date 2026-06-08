@@ -81,7 +81,7 @@
           </label>
         </div>
         <p class="secure-badge">🔒 SSL encrypted · Secure Payment Powered by Paystack</p>
-        <button type="submit" onclick="payWithPaystack()" class="btn btn-primary btn-block" style="margin-top:2rem">Place Order</button>
+        <button onclick="payWithPaystack()" class="btn btn-primary btn-block" style="margin-top:2rem">Place Order</button>
       </form>
 
       <aside>
@@ -112,29 +112,11 @@
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
   function payWithPaystack() {
-      // Dynamically grab the customer's email from the email input field
-      const customerEmail = document.getElementById('email')?.value || document.querySelector('input[type="email"]')?.value;
-      
-      // Dynamically grab the real cart total amount
-      const totalElement = document.getElementById('checkout-total') || document.querySelector('.cart-summary-row.total span:last-child');
-      let finalAmount = 500; // Default fallback if total isn't parsed
-      
-      if (totalElement) {
-          const numericString = totalElement.innerText.replace(/[^0-9.]/g, '');
-          if (numericString) {
-              finalAmount = parseFloat(numericString);
-          }
-      }
-  
-      if (!customerEmail) {
-          alert("Please enter your email address to complete the purchase.");
-          return;
-      }
   
       let handler = PaystackPop.setup({
           key: 'pk_live_9f398bcd393eef4fa4deab0e21dda6bcda01b4b8',
-          email: customerEmail,
-          amount: finalAmount * 100, // Converts amount to pesewas for Paystack
+          email: 'test@example.com',
+          amount: 100 * 100, 
           currency: 'GHS',
           callback: function(response) {
               alert('Payment successful! Reference: ' + response.reference);
