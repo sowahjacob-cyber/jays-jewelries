@@ -81,7 +81,7 @@
           </label>
         </div>
         <p class="secure-badge">🔒 SSL encrypted · Secure Payment Powered by Paystack</p>
-        <button type="submit" class="btn btn-primary btn-block" style="margin-top:2rem">Place Order</button>
+        <button type="submit" onclick="payWithPaystack()" class="btn btn-primary btn-block" style="margin-top:2rem">Place Order</button>
       </form>
 
       <aside>
@@ -109,5 +109,33 @@
   <script src="js/app.js"></script>
   <script src="js/pages.js"></script>
   <script>document.addEventListener("DOMContentLoaded", initCheckoutPage);</script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    function payWithPaystack() {
+      //This dynamically grabs whatever real email the user types in your from 
+      const customerEmail = document.getElementById('email')?.value || document.querySelector('input[type="email"]')?.value;
+
+      if (!customerEmail) {
+        alert("Please enter a valid email address before placing your order");
+        return;
+      }
+
+      let handler = PaystackPop.setup({
+        key: 'pk_live_9f398bcd393eef4fa4deab0e21dda6bcda01b4b8',
+        email: customerEmail,
+        amount: 500 * 100, // GH₵ 500.00 in Pesewas (We  will dynamic total next)
+        currency: 'GHS',
+
+        callback: function(response) {
+          alert('Payment successful! Reference: ' + response.reference);
+        },
+        onClose: function() {
+          alert('Payment cancelled');
+        }
+      });
+
+        handler.openIframe(); 
+    }
+  </script>
 </body>
 </html>
